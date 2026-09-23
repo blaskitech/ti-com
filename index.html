@@ -1,12 +1,10 @@
-from pathlib import Path
-
-html = r'''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="TI-COM — Networking modules, networking equipment and digital connectivity solutions in Lagos Island, Lagos State.">
-  <title>TI-COM | Networking & Digital Connectivity</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TI-COM — Intercommunication & Networking Technology Solutions in Lagos Island, Lagos State, Nigeria." />
+  <title>TI-COM | Networking Technology & Intercommunication Solutions</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -15,116 +13,144 @@ html = r'''<!DOCTYPE html>
       theme: {
         extend: {
           colors: {
-            navy: "#071A33",
-            blue: "#0B5ED7",
-            cyan: "#06B6D4",
-            mint: "#14B8A6",
-            gold: "#F5B942",
-            ink: "#0F172A"
+            navy: "#061B3A",
+            darkblue: "#0B2A5B",
+            electric: "#0757C9",
+            cyan: "#10D9F5",
+            gold: "#FFC43D",
+            whatsapp: "#25D366"
+          },
+          fontFamily: {
+            sans: ["Poppins", "sans-serif"]
           },
           boxShadow: {
-            glow: "0 0 35px rgba(6,182,212,.18)"
+            glow: "0 0 35px rgba(16,217,245,.20)"
           }
         }
       }
     }
   </script>
 
-  <!-- Icons & Fonts -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
   <style>
     html { scroll-behavior: smooth; }
-    body { font-family: Inter, sans-serif; }
-    h1,h2,h3,h4,.brand { font-family: "Space Grotesk", sans-serif; }
-    .hero-grid {
+    body { font-family: "Poppins", sans-serif; }
+    .tech-grid {
       background-image:
-        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-      background-size: 44px 44px;
+        linear-gradient(rgba(16,217,245,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16,217,245,.07) 1px, transparent 1px);
+      background-size: 45px 45px;
     }
-    .glass {
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.11);
-      backdrop-filter: blur(14px);
+    .hero-glow {
+      background:
+        radial-gradient(circle at 20% 30%, rgba(7,87,201,.38), transparent 30%),
+        radial-gradient(circle at 80% 20%, rgba(16,217,245,.20), transparent 25%),
+        linear-gradient(135deg, #061B3A 0%, #0B2A5B 55%, #061B3A 100%);
     }
-    .reveal { opacity: 0; transform: translateY(24px); transition: .7s ease; }
+    .reveal {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
     .reveal.show { opacity: 1; transform: translateY(0); }
-    .product-card { transition: transform .25s ease, box-shadow .25s ease; }
-    .product-card:hover { transform: translateY(-5px); }
-    .toast { animation: toastIn .3s ease; }
-    @keyframes toastIn {
-      from { opacity:0; transform: translateY(15px); }
-      to { opacity:1; transform: translateY(0); }
+    .product-card { transition: transform .3s ease, box-shadow .3s ease; }
+    .product-card:hover { transform: translateY(-7px); box-shadow: 0 18px 50px rgba(6,27,58,.14); }
+    .nav-scrolled { box-shadow: 0 10px 35px rgba(0,0,0,.18); backdrop-filter: blur(16px); }
+    .modal-hidden { opacity: 0; pointer-events: none; }
+    .modal-hidden .modal-box { transform: translateY(20px) scale(.98); }
+    .modal-box { transition: transform .25s ease; }
+    .toast {
+      transform: translateY(100px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all .3s ease;
     }
-    .loader {
-      animation: pulse 1.2s infinite ease-in-out;
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .pulse-ring { animation: pulseRing 2.2s infinite; }
+    @keyframes pulseRing {
+      0%,100% { box-shadow: 0 0 0 0 rgba(16,217,245,.28); }
+      50% { box-shadow: 0 0 0 18px rgba(16,217,245,0); }
     }
-    @keyframes pulse { 50% { transform: scale(.92); opacity:.65; } }
-    .cart-badge { min-width: 20px; }
+    .loader-bar { animation: load 1.8s ease forwards; }
+    @keyframes load { from { width: 0; } to { width: 100%; } }
   </style>
 </head>
 
-<body class="bg-slate-50 text-ink">
+<body class="bg-[#F4F7FB] text-slate-800">
 
   <!-- PRELOADER -->
-  <div id="preloader" class="fixed inset-0 z-[100] bg-navy flex items-center justify-center">
-    <div class="text-center text-white">
-      <div class="loader mx-auto mb-4 h-14 w-14 rounded-2xl bg-cyan/20 border border-cyan/50 flex items-center justify-center">
-        <i data-lucide="network" class="w-7 h-7 text-cyan"></i>
+  <div id="preloader" class="fixed inset-0 z-[100] flex items-center justify-center bg-navy">
+    <div class="text-center px-6">
+      <div class="mx-auto mb-5 h-16 w-16 rounded-2xl border border-cyan/40 bg-white/5 flex items-center justify-center text-cyan text-2xl shadow-glow">
+        <i class="fa-solid fa-network-wired"></i>
       </div>
-      <div class="brand text-2xl font-bold tracking-wider">TI-COM</div>
-      <p class="text-slate-400 text-sm mt-1">Connecting possibilities...</p>
+      <div class="text-white text-2xl font-extrabold tracking-widest">TI-COM</div>
+      <p class="mt-2 text-cyan text-xs tracking-[.28em] uppercase">Connecting Technology</p>
+      <div class="mt-6 h-1 w-56 overflow-hidden rounded-full bg-white/10">
+        <div class="loader-bar h-full rounded-full bg-cyan"></div>
+      </div>
     </div>
   </div>
 
-  <!-- HEADER -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-navy/95 backdrop-blur-md border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      <a href="#home" class="brand flex items-center gap-3 text-white">
-        <span class="h-10 w-10 rounded-xl bg-gradient-to-br from-cyan to-blue flex items-center justify-center shadow-glow">
-          <i data-lucide="network" class="w-5 h-5"></i>
-        </span>
-        <span>
-          <span class="block text-xl font-bold tracking-wide">TI-COM</span>
-          <span class="block text-[10px] text-cyan tracking-[.25em]">NETWORKING SOLUTIONS</span>
-        </span>
-      </a>
-
-      <nav id="desktopNav" class="hidden lg:flex items-center gap-7 text-sm text-slate-300">
-        <a href="#home" class="hover:text-cyan transition">Home</a>
-        <a href="#products" class="hover:text-cyan transition">Products</a>
-        <a href="#services" class="hover:text-cyan transition">Services</a>
-        <a href="#about" class="hover:text-cyan transition">About</a>
-        <a href="#faq" class="hover:text-cyan transition">FAQ</a>
-        <a href="#contact" class="hover:text-cyan transition">Contact</a>
-      </nav>
-
-      <div class="flex items-center gap-2">
-        <button onclick="openCart()" class="relative h-11 w-11 rounded-xl glass text-white flex items-center justify-center hover:bg-white/10">
-          <i data-lucide="shopping-cart" class="w-5 h-5"></i>
-          <span id="cartCount" class="cart-badge absolute -top-1 -right-1 bg-gold text-navy text-[10px] font-bold rounded-full px-1.5 py-0.5">0</span>
-        </button>
-        <a href="#contact" class="hidden sm:inline-flex items-center gap-2 bg-cyan hover:bg-cyan/90 text-navy font-bold px-4 py-2.5 rounded-xl transition">
-          <i data-lucide="message-circle" class="w-4 h-4"></i> Contact
+  <!-- NAVBAR -->
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-navy/95 text-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-20 items-center justify-between gap-4">
+        <a href="#home" class="flex items-center gap-3 shrink-0">
+          <div class="h-11 w-11 rounded-xl bg-gradient-to-br from-electric to-cyan flex items-center justify-center text-white shadow-glow">
+            <i class="fa-solid fa-network-wired"></i>
+          </div>
+          <div>
+            <div class="font-extrabold tracking-wide text-xl">TI-COM</div>
+            <div class="hidden sm:block text-[9px] uppercase tracking-[.18em] text-cyan">Networking Solutions</div>
+          </div>
         </a>
-        <button id="mobileMenuBtn" class="lg:hidden h-11 w-11 rounded-xl glass text-white flex items-center justify-center">
-          <i data-lucide="menu" class="w-5 h-5"></i>
+
+        <nav id="desktopNav" class="hidden xl:flex items-center gap-5 text-sm">
+          <a href="#home" class="hover:text-cyan transition">Home</a>
+          <a href="#products" class="hover:text-cyan transition">Products</a>
+          <a href="#services" class="hover:text-cyan transition">Services</a>
+          <a href="#about" class="hover:text-cyan transition">About</a>
+          <a href="#ceo" class="hover:text-cyan transition">CEO</a>
+          <a href="#location" class="hover:text-cyan transition">Location</a>
+          <a href="#faq" class="hover:text-cyan transition">FAQ</a>
+          <a href="#contact" class="hover:text-cyan transition">Contact</a>
+        </nav>
+
+        <div class="hidden md:flex items-center gap-3">
+          <a href="#ceo" class="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 hover:bg-white/10 transition">
+            <img src="./img/ticom profile.jpg" alt="IFEANYI TOBIAS" class="h-8 w-8 rounded-full object-cover bg-slate-700">
+            <span class="hidden lg:block text-xs font-semibold">IFEANYI TOBIAS · CEO</span>
+          </a>
+          <button onclick="openSubscribe()" class="rounded-full bg-gold px-4 py-2 text-sm font-bold text-navy hover:brightness-105 transition">
+            Subscribe
+          </button>
+        </div>
+
+        <button id="menuBtn" class="xl:hidden h-11 w-11 rounded-xl border border-white/10 bg-white/5 text-xl" aria-label="Open menu">
+          <i class="fa-solid fa-bars"></i>
         </button>
       </div>
-    </div>
 
-    <div id="mobileNav" class="hidden lg:hidden px-4 pb-4 border-t border-white/10">
-      <div class="grid gap-2 pt-3 text-slate-300">
-        <a href="#home" class="mobile-link p-3 rounded-lg hover:bg-white/5">Home</a>
-        <a href="#products" class="mobile-link p-3 rounded-lg hover:bg-white/5">Products</a>
-        <a href="#services" class="mobile-link p-3 rounded-lg hover:bg-white/5">Services</a>
-        <a href="#about" class="mobile-link p-3 rounded-lg hover:bg-white/5">About</a>
-        <a href="#faq" class="mobile-link p-3 rounded-lg hover:bg-white/5">FAQ</a>
-        <a href="#contact" class="mobile-link p-3 rounded-lg hover:bg-white/5">Contact</a>
+      <div id="mobileMenu" class="hidden pb-5 xl:hidden">
+        <div class="grid gap-2 rounded-2xl border border-white/10 bg-white/5 p-3">
+          <a href="#home" class="mobile-link rounded-xl px-4 py-3 hover:bg-white/10">Home</a>
+          <a href="#products" class="mobile-link rounded-xl px-4 py-3 hover:bg-white/10">Products</a>
+          <a href="#services" class="mobile-link rounded-xl px-4 py-3 hover:bg-white/10">Services</a>
+          <a href="#about" class="mobile-link rounded-xl px-4 py-3 hover:bg-white/10">About</a>
+          <a href="#ceo" class="mobile-link rounded-xl px-4 py-3 hover:bg-white/10">CEO</a>
+          <a href="#location" class="mobile-link rounded-xl px-4 py-3 hover:bg-white/10">Location</a>
+          <a href="#faq" class="mobile-link rounded-xl px-4 py-3 hover:bg-white/10">FAQ</a>
+          <a href="#contact" class="mobile-link rounded-xl px-4 py-3 hover:bg-white/10">Contact</a>
+          <button onclick="openSubscribe()" class="mt-2 rounded-xl bg-gold px-4 py-3 font-bold text-navy">Subscribe</button>
+        </div>
       </div>
     </div>
   </header>
@@ -132,86 +158,77 @@ html = r'''<!DOCTYPE html>
   <main>
 
     <!-- HERO -->
-    <section id="home" class="pt-20 min-h-screen bg-navy text-white hero-grid relative overflow-hidden">
-      <div class="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-cyan/10 blur-3xl"></div>
-      <div class="absolute bottom-0 -left-40 w-96 h-96 rounded-full bg-blue/10 blur-3xl"></div>
+    <section id="home" class="hero-glow relative overflow-hidden min-h-screen flex items-center text-white pt-28">
+      <div class="absolute inset-0 tech-grid opacity-60"></div>
+      <div class="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-cyan/10 blur-3xl"></div>
+      <div class="absolute bottom-0 -left-24 h-96 w-96 rounded-full bg-electric/20 blur-3xl"></div>
 
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative">
-        <div class="grid lg:grid-cols-2 gap-14 items-center">
+      <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 w-full">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
           <div class="reveal">
-            <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full glass text-cyan text-xs font-semibold mb-6">
-              <span class="h-2 w-2 rounded-full bg-mint animate-pulse"></span>
-              NETWORKING • CONNECTIVITY • TECHNOLOGY
+            <div class="inline-flex items-center gap-2 rounded-full border border-cyan/25 bg-cyan/10 px-4 py-2 text-xs font-semibold text-cyan mb-6">
+              <span class="h-2 w-2 rounded-full bg-cyan animate-pulse"></span>
+              Networking Technology & Intercommunication
             </div>
 
-            <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold leading-[1.02]">
-              Build a network that
-              <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan to-blue">keeps you connected.</span>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08]">
+              Your Trusted
+              <span class="text-cyan"> Networking</span>
+              Technology Partner
             </h1>
 
-            <p class="mt-6 text-slate-300 text-base sm:text-lg leading-8 max-w-2xl">
-              TI-COM provides networking modules, connectivity equipment and practical technology solutions for homes, offices, businesses and technical projects.
+            <p class="mt-6 max-w-2xl text-slate-300 leading-8">
+              TI-COM provides networking modules, fiber optic products, networking equipment and connectivity solutions for businesses, organizations and individuals.
             </p>
 
-            <div class="mt-8 flex flex-col sm:flex-row gap-3">
-              <a href="#products" class="inline-flex justify-center items-center gap-2 bg-cyan hover:bg-cyan/90 text-navy font-bold px-6 py-3.5 rounded-xl transition">
-                Browse Products <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            <div class="mt-8 flex flex-wrap gap-4">
+              <a href="https://wa.me/234705851114?text=Hello%20TI-COM%2C%20I%20would%20like%20to%20make%20a%20product%20enquiry." target="_blank" rel="noopener" class="rounded-xl bg-whatsapp px-6 py-3.5 font-bold text-white hover:scale-[1.02] transition">
+                <i class="fa-brands fa-whatsapp mr-2"></i> Chat on WhatsApp
               </a>
-              <a href="#contact" class="inline-flex justify-center items-center gap-2 border border-white/15 hover:bg-white/10 px-6 py-3.5 rounded-xl transition">
-                Talk to TI-COM <i data-lucide="phone" class="w-5 h-5"></i>
+              <a href="#products" class="rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 font-bold hover:bg-white/10 transition">
+                Explore Products <i class="fa-solid fa-arrow-right ml-2 text-cyan"></i>
               </a>
             </div>
 
-            <div class="mt-10 grid grid-cols-3 gap-5 max-w-lg">
-              <div><div class="text-2xl font-bold">24/7</div><div class="text-xs text-slate-400 mt-1">Online enquiry</div></div>
-              <div><div class="text-2xl font-bold">Lagos</div><div class="text-xs text-slate-400 mt-1">Island location</div></div>
-              <div><div class="text-2xl font-bold">Fast</div><div class="text-xs text-slate-400 mt-1">Product enquiry</div></div>
+            <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-xl">
+              <div class="rounded-xl border border-white/10 bg-white/5 p-3">
+                <i class="fa-solid fa-microchip text-cyan"></i>
+                <p class="mt-2 text-xs text-slate-300">SFP Modules</p>
+              </div>
+              <div class="rounded-xl border border-white/10 bg-white/5 p-3">
+                <i class="fa-solid fa-fiber-node text-cyan"></i>
+                <p class="mt-2 text-xs text-slate-300">Fiber Optics</p>
+              </div>
+              <div class="rounded-xl border border-white/10 bg-white/5 p-3">
+                <i class="fa-solid fa-server text-cyan"></i>
+                <p class="mt-2 text-xs text-slate-300">Network Gear</p>
+              </div>
+              <div class="rounded-xl border border-white/10 bg-white/5 p-3">
+                <i class="fa-solid fa-plug-circle-bolt text-cyan"></i>
+                <p class="mt-2 text-xs text-slate-300">Accessories</p>
+              </div>
             </div>
           </div>
 
-          <!-- Network visual -->
-          <div class="reveal">
-            <div class="relative max-w-xl mx-auto">
-              <div class="absolute inset-10 bg-cyan/10 blur-3xl rounded-full"></div>
-              <div class="relative rounded-3xl glass p-6 sm:p-8 shadow-2xl">
-                <div class="flex items-center justify-between mb-6">
-                  <div>
-                    <p class="text-xs uppercase tracking-widest text-cyan">TI-COM NETWORK</p>
-                    <h2 class="text-xl font-bold mt-1">Connectivity Hub</h2>
-                  </div>
-                  <span class="h-3 w-3 rounded-full bg-mint animate-pulse"></span>
-                </div>
-
-                <div class="relative h-80 rounded-2xl bg-slate-950/50 border border-white/10 overflow-hidden">
-                  <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="h-24 w-24 rounded-2xl bg-gradient-to-br from-cyan to-blue flex items-center justify-center shadow-2xl shadow-cyan/20">
-                      <i data-lucide="router" class="w-11 h-11 text-white"></i>
+          <div class="reveal relative">
+            <div class="relative mx-auto max-w-xl">
+              <div class="absolute -inset-4 rounded-[2rem] bg-cyan/10 blur-2xl"></div>
+              <div class="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-4 shadow-glow">
+                <div class="rounded-[1.5rem] overflow-hidden bg-gradient-to-br from-darkblue to-navy min-h-[480px] flex items-center justify-center">
+                  <div class="absolute inset-0 tech-grid"></div>
+                  <div class="relative text-center px-8">
+                    <div id="heroCeoFrame" class="mx-auto h-44 w-44 rounded-full border-4 border-cyan/50 bg-slate-800 overflow-hidden shadow-glow pulse-ring">
+                      <img src="./img/ticom profile.jpg" alt="IFEANYI TOBIAS — CEO of TI-COM" class="h-full w-full object-cover">
+                    </div>
+                    <p class="mt-7 text-xs uppercase tracking-[.3em] text-cyan">TI-COM</p>
+                    <h2 class="mt-2 text-3xl font-extrabold">Reliable Connection</h2>
+                    <p class="mt-2 text-slate-300">for a Better Tomorrow</p>
+                    <div class="mt-7 flex flex-wrap justify-center gap-2">
+                      <span class="rounded-full bg-white/10 px-3 py-1 text-xs">Networking Modules</span>
+                      <span class="rounded-full bg-white/10 px-3 py-1 text-xs">Fiber Optics</span>
+                      <span class="rounded-full bg-white/10 px-3 py-1 text-xs">Connectivity</span>
                     </div>
                   </div>
-
-                  <div class="absolute top-10 left-10 h-14 w-14 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center">
-                    <i data-lucide="laptop" class="w-6 h-6 text-cyan"></i>
-                  </div>
-                  <div class="absolute top-10 right-10 h-14 w-14 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center">
-                    <i data-lucide="wifi" class="w-6 h-6 text-cyan"></i>
-                  </div>
-                  <div class="absolute bottom-10 left-10 h-14 w-14 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center">
-                    <i data-lucide="server" class="w-6 h-6 text-cyan"></i>
-                  </div>
-                  <div class="absolute bottom-10 right-10 h-14 w-14 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center">
-                    <i data-lucide="smartphone" class="w-6 h-6 text-cyan"></i>
-                  </div>
-
-                  <div class="absolute top-[29%] left-[22%] w-[56%] border-t border-dashed border-cyan/50 rotate-[20deg]"></div>
-                  <div class="absolute top-[29%] right-[22%] w-[56%] border-t border-dashed border-cyan/50 -rotate-[20deg]"></div>
-                  <div class="absolute bottom-[29%] left-[22%] w-[56%] border-t border-dashed border-cyan/50 -rotate-[20deg]"></div>
-                  <div class="absolute bottom-[29%] right-[22%] w-[56%] border-t border-dashed border-cyan/50 rotate-[20deg]"></div>
-                </div>
-
-                <div class="grid grid-cols-3 gap-3 mt-5">
-                  <div class="bg-white/5 rounded-xl p-3"><p class="text-xs text-slate-400">Modules</p><p class="font-semibold">Networking</p></div>
-                  <div class="bg-white/5 rounded-xl p-3"><p class="text-xs text-slate-400">Focus</p><p class="font-semibold">Connectivity</p></div>
-                  <div class="bg-white/5 rounded-xl p-3"><p class="text-xs text-slate-400">Market</p><p class="font-semibold">Nigeria</p></div>
                 </div>
               </div>
             </div>
@@ -220,131 +237,143 @@ html = r'''<!DOCTYPE html>
       </div>
     </section>
 
-    <!-- PRODUCT SECTION -->
-    <section id="products" class="py-20 lg:py-28 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="reveal text-center max-w-2xl mx-auto">
-          <span class="text-cyan font-bold text-sm uppercase tracking-widest">Product catalogue</span>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mt-3">Networking products for modern connections</h2>
-          <p class="text-slate-600 mt-4">Browse the sample catalogue below. Replace product images, names and prices with your actual inventory before publishing.</p>
+    <!-- AD BANNER -->
+    <section class="bg-gold text-navy">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-3">
+        <div>
+          <p class="font-extrabold">Premium Networking Modules</p>
+          <p class="text-sm">Reliable connectivity products for modern networks.</p>
         </div>
-
-        <div class="mt-10 flex flex-col lg:flex-row gap-4 justify-between">
-          <div class="relative max-w-xl w-full">
-            <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5"></i>
-            <input id="productSearch" type="search" placeholder="Search networking products..." class="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan/30">
-          </div>
-          <div class="flex flex-wrap gap-2">
-            <button class="filter-btn px-4 py-2.5 rounded-xl bg-navy text-white text-sm font-semibold" data-filter="all">All</button>
-            <button class="filter-btn px-4 py-2.5 rounded-xl bg-slate-100 text-slate-700 text-sm font-semibold" data-filter="modules">Modules</button>
-            <button class="filter-btn px-4 py-2.5 rounded-xl bg-slate-100 text-slate-700 text-sm font-semibold" data-filter="routers">Routers</button>
-            <button class="filter-btn px-4 py-2.5 rounded-xl bg-slate-100 text-slate-700 text-sm font-semibold" data-filter="switches">Switches</button>
-            <button class="filter-btn px-4 py-2.5 rounded-xl bg-slate-100 text-slate-700 text-sm font-semibold" data-filter="accessories">Accessories</button>
-          </div>
-        </div>
-
-        <div id="productGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-10"></div>
-        <p id="noProducts" class="hidden text-center text-slate-500 py-12">No matching products found.</p>
+        <a href="#products" class="rounded-lg bg-navy px-5 py-2.5 text-sm font-bold text-white hover:bg-darkblue transition">Explore Products</a>
       </div>
     </section>
 
-    <!-- PROMO -->
-    <section class="py-8 bg-navy text-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="rounded-2xl bg-gradient-to-r from-blue/30 to-cyan/20 border border-white/10 p-6 flex flex-col lg:flex-row gap-5 items-center justify-between">
+    <!-- PRODUCTS -->
+    <section id="products" class="py-24 bg-white">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div>
-            <p class="text-gold text-xs font-bold uppercase tracking-widest">TI-COM update</p>
-            <h3 class="text-xl sm:text-2xl font-bold mt-1">Get product updates and networking offers</h3>
-            <p class="text-slate-300 text-sm mt-1">Join the TI-COM mailing list for catalogue updates and announcements.</p>
+            <p class="text-sm font-bold uppercase tracking-[.2em] text-electric">Product Showcase</p>
+            <h2 class="mt-2 text-3xl sm:text-4xl font-extrabold text-navy">Popular Networking Products</h2>
+            <p class="mt-4 max-w-2xl text-slate-600">Browse networking modules, fiber connectivity products, network equipment and accessories. Use the enquiry cart to send a complete product request through WhatsApp.</p>
           </div>
-          <form id="subscribeForm" class="flex w-full lg:w-auto gap-2">
-            <input id="subscribeEmail" type="email" required placeholder="Your email address" class="min-w-0 w-full lg:w-72 px-4 py-3 rounded-xl bg-white text-slate-900 focus:outline-none">
-            <button class="px-5 py-3 rounded-xl bg-cyan text-navy font-bold hover:bg-cyan/90 transition">Subscribe</button>
-          </form>
+          <button onclick="openCart()" class="rounded-xl bg-navy px-5 py-3 font-bold text-white hover:bg-darkblue transition">
+            <i class="fa-solid fa-clipboard-list mr-2 text-cyan"></i> Product Enquiry
+            <span id="cartCount" class="ml-2 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-gold px-1.5 text-xs text-navy">0</span>
+          </button>
         </div>
+
+        <div class="reveal mt-8 flex flex-col md:flex-row gap-3">
+          <div class="relative flex-1">
+            <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+            <input id="productSearch" type="search" placeholder="Search products..." class="w-full rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 outline-none focus:border-electric focus:ring-4 focus:ring-electric/10">
+          </div>
+          <div id="filters" class="flex flex-wrap gap-2">
+            <button data-filter="All" class="filter-btn rounded-xl bg-navy px-4 py-3 text-sm font-semibold text-white">All</button>
+            <button data-filter="Networking Modules" class="filter-btn rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold">Networking Modules</button>
+            <button data-filter="Fiber Optics" class="filter-btn rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold">Fiber Optics</button>
+            <button data-filter="Switches" class="filter-btn rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold">Switches</button>
+            <button data-filter="Routers" class="filter-btn rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold">Routers</button>
+            <button data-filter="Accessories" class="filter-btn rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold">Accessories</button>
+          </div>
+        </div>
+
+        <div id="productGrid" class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+        <div id="emptyProducts" class="hidden py-16 text-center">
+          <i class="fa-solid fa-box-open text-4xl text-slate-300"></i>
+          <p class="mt-4 font-bold text-navy">No matching products</p>
+          <p class="text-sm text-slate-500">Try another search term or category.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECOND AD -->
+    <section class="bg-navy text-white py-14 overflow-hidden relative">
+      <div class="absolute inset-0 tech-grid opacity-30"></div>
+      <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
+        <div>
+          <p class="text-cyan font-bold uppercase tracking-[.2em] text-xs">TI-COM Connectivity</p>
+          <h2 class="mt-2 text-3xl sm:text-4xl font-extrabold">Build Better Connections</h2>
+          <p class="mt-3 text-slate-300">Networking modules • Fiber optics • Network equipment • Accessories</p>
+        </div>
+        <a href="https://wa.me/234705851114?text=Hello%20TI-COM%2C%20I%20would%20like%20to%20learn%20more%20about%20your%20networking%20products." target="_blank" rel="noopener" class="shrink-0 rounded-xl bg-whatsapp px-6 py-3.5 font-bold hover:brightness-105 transition">
+          <i class="fa-brands fa-whatsapp mr-2"></i> Chat With TI-COM
+        </a>
       </div>
     </section>
 
     <!-- SERVICES -->
-    <section id="services" class="py-20 lg:py-28 bg-slate-100">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="reveal max-w-2xl">
-          <span class="text-cyan font-bold text-sm uppercase tracking-widest">What TI-COM offers</span>
-          <h2 class="text-3xl sm:text-4xl font-bold mt-3">Networking support built around your project</h2>
-          <p class="text-slate-600 mt-4">The front end is structured so you can expand the catalogue and connect it to your real inventory, order and payment systems later.</p>
+    <section id="services" class="py-24 bg-[#F4F7FB]">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal text-center max-w-2xl mx-auto">
+          <p class="text-sm font-bold uppercase tracking-[.2em] text-electric">What We Provide</p>
+          <h2 class="mt-2 text-3xl sm:text-4xl font-extrabold text-navy">Networking Solutions</h2>
+          <p class="mt-4 text-slate-600">Products and connectivity materials built around practical networking needs.</p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mt-10">
-          <div class="reveal bg-white rounded-2xl p-6 border border-slate-200">
-            <div class="h-12 w-12 rounded-xl bg-blue/10 text-blue flex items-center justify-center"><i data-lucide="cpu"></i></div>
-            <h3 class="font-bold text-xl mt-5">Networking Modules</h3>
-            <p class="text-slate-600 text-sm mt-2 leading-6">Present networking modules and related components in a clear product catalogue.</p>
+        <div class="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="reveal rounded-2xl bg-white border border-slate-200 p-7">
+            <div class="h-14 w-14 rounded-2xl bg-electric/10 text-electric flex items-center justify-center text-2xl"><i class="fa-solid fa-microchip"></i></div>
+            <h3 class="mt-5 font-bold text-xl text-navy">Networking Modules</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-600">Supply of networking modules and compatible transceivers.</p>
           </div>
-          <div class="reveal bg-white rounded-2xl p-6 border border-slate-200">
-            <div class="h-12 w-12 rounded-xl bg-cyan/10 text-cyan flex items-center justify-center"><i data-lucide="router"></i></div>
-            <h3 class="font-bold text-xl mt-5">Routers & Connectivity</h3>
-            <p class="text-slate-600 text-sm mt-2 leading-6">Showcase routers and connectivity products with enquiry and cart actions.</p>
+          <div class="reveal rounded-2xl bg-white border border-slate-200 p-7">
+            <div class="h-14 w-14 rounded-2xl bg-cyan/10 text-electric flex items-center justify-center text-2xl"><i class="fa-solid fa-fan"></i></div>
+            <h3 class="mt-5 font-bold text-xl text-navy">Fiber Optic Connectivity</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-600">Fiber optic patch cords, connectors, adapters and connectivity materials.</p>
           </div>
-          <div class="reveal bg-white rounded-2xl p-6 border border-slate-200">
-            <div class="h-12 w-12 rounded-xl bg-mint/10 text-mint flex items-center justify-center"><i data-lucide="network"></i></div>
-            <h3 class="font-bold text-xl mt-5">Network Equipment</h3>
-            <p class="text-slate-600 text-sm mt-2 leading-6">Organize switches, accessories and technical equipment by category.</p>
+          <div class="reveal rounded-2xl bg-white border border-slate-200 p-7">
+            <div class="h-14 w-14 rounded-2xl bg-electric/10 text-electric flex items-center justify-center text-2xl"><i class="fa-solid fa-server"></i></div>
+            <h3 class="mt-5 font-bold text-xl text-navy">Network Equipment</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-600">Networking switches, routers and related equipment.</p>
           </div>
-          <div class="reveal bg-white rounded-2xl p-6 border border-slate-200">
-            <div class="h-12 w-12 rounded-xl bg-gold/20 text-amber-700 flex items-center justify-center"><i data-lucide="headphones"></i></div>
-            <h3 class="font-bold text-xl mt-5">Product Enquiries</h3>
-            <p class="text-slate-600 text-sm mt-2 leading-6">Allow customers to quickly send their cart or product questions to TI-COM.</p>
+          <div class="reveal rounded-2xl bg-white border border-slate-200 p-7">
+            <div class="h-14 w-14 rounded-2xl bg-gold/20 text-navy flex items-center justify-center text-2xl"><i class="fa-solid fa-toolbox"></i></div>
+            <h3 class="mt-5 font-bold text-xl text-navy">Networking Accessories</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-600">Cables, connectors, tools and supporting networking materials.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT / CEO -->
-    <section id="about" class="py-20 lg:py-28 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-2 gap-12 items-center">
+    <!-- ABOUT -->
+    <section id="about" class="py-24 bg-white">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-14 items-center">
           <div class="reveal">
-            <span class="text-cyan font-bold text-sm uppercase tracking-widest">About TI-COM</span>
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mt-3">Technology that helps people stay connected.</h2>
-            <p class="text-slate-600 leading-8 mt-6">
-              TI-COM is presented as a networking and connectivity business based in Lagos Island, Lagos State. This website gives customers a simple way to explore products, submit enquiries and contact the business.
+            <p class="text-sm font-bold uppercase tracking-[.2em] text-electric">About TI-COM</p>
+            <h2 class="mt-2 text-3xl sm:text-4xl font-extrabold text-navy">Connecting Technology. Building Networks.</h2>
+            <p class="mt-5 leading-8 text-slate-600">
+              TI-COM is an Intercommunication & Networking Technology Solutions business focused on networking modules, fiber connectivity products, networking equipment and accessories.
             </p>
-            <div class="grid sm:grid-cols-2 gap-4 mt-7">
-              <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5">
-                <i data-lucide="shield-check" class="text-cyan"></i>
-                <h3 class="font-bold mt-3">Clear product information</h3>
-                <p class="text-sm text-slate-600 mt-1">Catalogue structure designed for easy browsing.</p>
-              </div>
-              <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5">
-                <i data-lucide="smartphone" class="text-cyan"></i>
-                <h3 class="font-bold mt-3">Mobile friendly</h3>
-                <p class="text-sm text-slate-600 mt-1">Responsive interface for phones, tablets and desktops.</p>
-              </div>
+            <p class="mt-4 leading-8 text-slate-600">
+              The website is designed to make product discovery and enquiries straightforward, with WhatsApp communication available for product enquiries and manual payment confirmation.
+            </p>
+            <div class="mt-8 grid sm:grid-cols-2 gap-3">
+              <div class="rounded-xl border border-slate-200 p-4"><i class="fa-solid fa-microchip text-electric mr-2"></i> Networking Modules</div>
+              <div class="rounded-xl border border-slate-200 p-4"><i class="fa-solid fa-wave-square text-electric mr-2"></i> Fiber Connectivity</div>
+              <div class="rounded-xl border border-slate-200 p-4"><i class="fa-solid fa-server text-electric mr-2"></i> Network Equipment</div>
+              <div class="rounded-xl border border-slate-200 p-4"><i class="fa-solid fa-plug text-electric mr-2"></i> Networking Accessories</div>
             </div>
           </div>
 
           <div class="reveal">
-            <div class="rounded-3xl bg-navy p-7 sm:p-9 text-white">
-              <div class="flex flex-col sm:flex-row gap-6 items-center">
-                <div class="h-36 w-36 rounded-2xl bg-gradient-to-br from-cyan to-blue flex items-center justify-center shrink-0 overflow-hidden">
-                  <!-- Replace this block with the CEO's real image:
-                       <img src="ceo.jpg" alt="IFEANYI TOBIAS" class="w-full h-full object-cover"> -->
-                  <i data-lucide="user-round" class="w-16 h-16"></i>
+            <div class="rounded-[2rem] bg-navy p-5 shadow-glow">
+              <div class="rounded-[1.5rem] overflow-hidden bg-darkblue p-7">
+                <div class="flex items-center gap-5">
+                  <div class="h-28 w-28 shrink-0 overflow-hidden rounded-2xl border-2 border-cyan/40 bg-slate-700">
+                    <img src="./img/ticom profile.jpg" alt="IFEANYI TOBIAS" class="h-full w-full object-cover">
+                  </div>
+                  <div>
+                    <p class="text-xs uppercase tracking-[.2em] text-cyan">Company Leadership</p>
+                    <h3 class="mt-1 text-2xl font-extrabold text-white">IFEANYI TOBIAS</h3>
+                    <p class="text-slate-300">Chief Executive Officer — TI-COM</p>
+                  </div>
                 </div>
-                <div>
-                  <p class="text-cyan text-xs uppercase tracking-widest font-bold">CEO / Business Contact</p>
-                  <h3 class="text-2xl font-bold mt-2">IFEANYI TOBIAS</h3>
-                  <p class="text-slate-300 mt-2">TI-COM</p>
-                  <a href="tel:07085851114" class="flex items-center gap-2 text-slate-300 hover:text-cyan mt-4">
-                    <i data-lucide="phone" class="w-4 h-4"></i> 07085851114
-                  </a>
-                  <a href="mailto:info@TI-COM.com" class="flex items-center gap-2 text-slate-300 hover:text-cyan mt-2">
-                    <i data-lucide="mail" class="w-4 h-4"></i> info@TI-COM.com
-                  </a>
+                <div class="mt-8 border-t border-white/10 pt-7">
+                  <p class="text-slate-300 leading-7">Professional networking products and connectivity solutions presented with a clear enquiry-first customer experience.</p>
+                  <a href="#ceo" class="mt-6 inline-flex items-center gap-2 text-cyan font-semibold">View CEO Profile <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
-              </div>
-              <div class="border-t border-white/10 mt-7 pt-6">
-                <p class="text-sm text-slate-400">For the production site, replace the sample CEO placeholder and catalogue data with the actual approved business assets.</p>
               </div>
             </div>
           </div>
@@ -352,516 +381,636 @@ html = r'''<!DOCTYPE html>
       </div>
     </section>
 
-    <!-- HOW IT WORKS -->
-    <section class="py-20 lg:py-28 bg-navy text-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-2xl mx-auto reveal">
-          <span class="text-cyan font-bold text-sm uppercase tracking-widest">Simple process</span>
-          <h2 class="text-3xl sm:text-4xl font-bold mt-3">From product discovery to enquiry</h2>
-        </div>
-        <div class="grid md:grid-cols-4 gap-5 mt-12">
-          <div class="reveal glass rounded-2xl p-6">
-            <span class="text-cyan font-bold text-2xl">01</span>
-            <h3 class="font-bold text-lg mt-4">Browse</h3>
-            <p class="text-slate-400 text-sm mt-2">Explore networking products by category.</p>
+    <!-- CEO -->
+    <section id="ceo" class="py-24 bg-navy text-white relative overflow-hidden">
+      <div class="absolute inset-0 tech-grid opacity-30"></div>
+      <div class="absolute right-0 top-0 h-96 w-96 rounded-full bg-cyan/10 blur-3xl"></div>
+      <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p class="text-cyan text-sm font-bold uppercase tracking-[.2em]">CEO Profile</p>
+            <h2 class="mt-2 text-4xl sm:text-5xl font-extrabold">IFEANYI TOBIAS</h2>
+            <p class="mt-2 text-gold font-semibold">Chief Executive Officer — TI-COM</p>
+            <p class="mt-6 max-w-xl text-slate-300 leading-8">
+              IFEANYI TOBIAS leads TI-COM, an Intercommunication & Networking Technology Solutions business focused on networking modules, fiber connectivity products, networking equipment and accessories.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a href="tel:07085851114" class="rounded-xl bg-white px-5 py-3 font-bold text-navy hover:bg-slate-100 transition"><i class="fa-solid fa-phone mr-2"></i> Call</a>
+              <a href="https://wa.me/234705851114?text=Hello%20IFEANYI%20TOBIAS%2C%20I%20would%20like%20to%20contact%20TI-COM." target="_blank" rel="noopener" class="rounded-xl bg-whatsapp px-5 py-3 font-bold text-white hover:brightness-105 transition"><i class="fa-brands fa-whatsapp mr-2"></i> WhatsApp</a>
+            </div>
           </div>
-          <div class="reveal glass rounded-2xl p-6">
-            <span class="text-cyan font-bold text-2xl">02</span>
-            <h3 class="font-bold text-lg mt-4">Select</h3>
-            <p class="text-slate-400 text-sm mt-2">Add products to your enquiry cart.</p>
-          </div>
-          <div class="reveal glass rounded-2xl p-6">
-            <span class="text-cyan font-bold text-2xl">03</span>
-            <h3 class="font-bold text-lg mt-4">Review</h3>
-            <p class="text-slate-400 text-sm mt-2">Review selected items before sending.</p>
-          </div>
-          <div class="reveal glass rounded-2xl p-6">
-            <span class="text-cyan font-bold text-2xl">04</span>
-            <h3 class="font-bold text-lg mt-4">Contact</h3>
-            <p class="text-slate-400 text-sm mt-2">Send your enquiry to TI-COM via WhatsApp.</p>
+          <div class="flex justify-center lg:justify-end">
+            <div class="relative">
+              <div class="absolute -inset-5 rounded-[2rem] bg-cyan/10 blur-2xl"></div>
+              <div class="relative h-[420px] w-full max-w-[360px] overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-3">
+                <img src="./img/ticom profile.jpg" alt="IFEANYI TOBIAS — Chief Executive Officer" class="h-full w-full object-cover rounded-[1.5rem]">
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- BANK TRANSFER -->
-    <section class="py-20 bg-slate-100">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="rounded-3xl bg-white border border-slate-200 overflow-hidden shadow-sm">
-          <div class="p-7 sm:p-10">
-            <div class="flex items-start gap-4">
-              <div class="h-12 w-12 rounded-xl bg-mint/10 text-mint flex items-center justify-center shrink-0">
-                <i data-lucide="landmark"></i>
+    <section id="payment" class="py-24 bg-[#F4F7FB]">
+      <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal rounded-[2rem] overflow-hidden border border-slate-200 bg-white shadow-xl">
+          <div class="bg-gradient-to-r from-navy to-darkblue px-6 sm:px-10 py-8 text-white">
+            <p class="text-cyan text-xs uppercase tracking-[.2em] font-bold">Payment Information</p>
+            <h2 class="mt-2 text-3xl font-extrabold">Bank Transfer Payment</h2>
+            <p class="mt-2 text-slate-300">After completing your bank transfer, send your payment confirmation through WhatsApp.</p>
+          </div>
+
+          <div class="p-6 sm:p-10">
+            <div class="grid sm:grid-cols-3 gap-4">
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                <p class="text-xs uppercase tracking-wider text-slate-500">Bank Name</p>
+                <p class="mt-2 text-xl font-extrabold text-navy">MONIEPOINT</p>
               </div>
-              <div>
-                <span class="text-mint text-xs uppercase tracking-widest font-bold">Transfer information</span>
-                <h2 class="text-2xl sm:text-3xl font-bold mt-2">Bank transfer details</h2>
-                <p class="text-slate-600 mt-2">Use the details below only for the agreed TI-COM payment process. Always confirm the order and payment instructions before transferring funds.</p>
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                <p class="text-xs uppercase tracking-wider text-slate-500">Account Name</p>
+                <p class="mt-2 text-xl font-extrabold text-navy">IFEANYI TOBIAS</p>
+              </div>
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                <p class="text-xs uppercase tracking-wider text-slate-500">Account Number</p>
+                <p class="mt-2 text-xl font-extrabold text-navy">7085851114</p>
+                <button onclick="copyAccount()" class="mt-3 rounded-lg bg-navy px-4 py-2 text-xs font-bold text-white hover:bg-darkblue transition">
+                  <i class="fa-regular fa-copy mr-1"></i> Copy Account Number
+                </button>
               </div>
             </div>
 
-            <div class="grid sm:grid-cols-3 gap-4 mt-8">
-              <div class="bg-slate-50 rounded-2xl p-5"><p class="text-xs text-slate-500">Bank</p><p class="font-bold mt-1">MONIEPOINT</p></div>
-              <div class="bg-slate-50 rounded-2xl p-5"><p class="text-xs text-slate-500">Account number</p><p class="font-bold mt-1">7085851114</p></div>
-              <div class="bg-slate-50 rounded-2xl p-5"><p class="text-xs text-slate-500">Account name</p><p class="font-bold mt-1">IFEANYI TOBIAS</p></div>
+            <div class="mt-7 rounded-2xl border border-gold/40 bg-gold/10 p-5">
+              <p class="font-bold text-navy"><i class="fa-solid fa-circle-info mr-2"></i>Payment confirmation</p>
+              <p class="mt-2 text-sm leading-7 text-slate-700">
+                After completing your bank transfer, send your payment confirmation through WhatsApp so TI-COM can confirm the payment and process your order.
+              </p>
             </div>
 
-            <a id="transferWhatsApp" href="#" target="_blank" rel="noopener" class="mt-6 inline-flex items-center gap-2 bg-mint text-white font-bold px-5 py-3 rounded-xl hover:opacity-90 transition">
-              <i data-lucide="message-circle"></i> Confirm Transfer on WhatsApp
+            <a href="https://wa.me/234705851114?text=Hello%20TI-COM%2C%20I%20have%20completed%20my%20bank%20transfer.%20I%20would%20like%20to%20confirm%20my%20payment%20and%20order." target="_blank" rel="noopener" class="mt-6 flex items-center justify-center rounded-xl bg-whatsapp px-6 py-4 font-extrabold text-white hover:brightness-105 transition">
+              <i class="fa-brands fa-whatsapp mr-2 text-xl"></i> Send Payment Confirmation on WhatsApp
             </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- FAQ -->
-    <section id="faq" class="py-20 lg:py-28 bg-white">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center reveal">
-          <span class="text-cyan font-bold text-sm uppercase tracking-widest">FAQ</span>
-          <h2 class="text-3xl sm:text-4xl font-bold mt-3">Frequently asked questions</h2>
+    <!-- LOCATION -->
+    <section id="location" class="py-24 bg-white">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal text-center">
+          <p class="text-sm font-bold uppercase tracking-[.2em] text-electric">Visit TI-COM</p>
+          <h2 class="mt-2 text-3xl sm:text-4xl font-extrabold text-navy">Lagos Island, Lagos State, Nigeria</h2>
+          <p class="mt-4 text-slate-600">No street address has been added. Use the map or directions buttons to navigate toward Lagos Island.</p>
         </div>
 
-        <div class="mt-10 space-y-3">
-          <details class="group border border-slate-200 rounded-2xl p-5">
-            <summary class="cursor-pointer font-bold flex justify-between items-center list-none">What does TI-COM sell? <span class="group-open:rotate-180 transition"><i data-lucide="chevron-down"></i></span></summary>
-            <p class="text-slate-600 mt-3 leading-7">The catalogue is designed for networking modules, routers, switches, connectivity equipment and accessories. Update the catalogue with the exact products TI-COM currently stocks.</p>
+        <div class="reveal mt-10 grid lg:grid-cols-2 gap-6">
+          <div class="rounded-[2rem] overflow-hidden border border-slate-200 bg-slate-100 min-h-[420px]">
+            <iframe
+              title="TI-COM location map"
+              src="https://www.google.com/maps?q=Lagos%20Island%2C%20Lagos%20State%2C%20Nigeria&output=embed"
+              class="w-full h-full min-h-[420px] border-0"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+
+          <div class="rounded-[2rem] bg-navy text-white p-8 sm:p-10 flex flex-col justify-center">
+            <div class="h-14 w-14 rounded-2xl bg-cyan/10 text-cyan flex items-center justify-center text-2xl"><i class="fa-solid fa-location-dot"></i></div>
+            <h3 class="mt-6 text-2xl font-extrabold">Find TI-COM</h3>
+            <p class="mt-3 text-slate-300 leading-7">Use Google Maps directions toward Lagos Island, Lagos State, Nigeria.</p>
+            <div class="mt-7 flex flex-wrap gap-3">
+              <a href="https://www.google.com/maps/dir/?api=1&destination=Lagos%20Island%2C%20Lagos%20State%2C%20Nigeria" target="_blank" rel="noopener" class="rounded-xl bg-white px-5 py-3 font-bold text-navy hover:bg-slate-100 transition">
+                <i class="fa-solid fa-route mr-2"></i> Get Directions
+              </a>
+              <button onclick="useCurrentLocation()" class="rounded-xl border border-white/15 bg-white/5 px-5 py-3 font-bold hover:bg-white/10 transition">
+                <i class="fa-solid fa-location-crosshairs mr-2 text-cyan"></i> Use My Current Location
+              </button>
+            </div>
+            <p id="locationStatus" class="mt-5 text-sm text-slate-300"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-24 bg-[#F4F7FB]">
+      <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal text-center">
+          <p class="text-sm font-bold uppercase tracking-[.2em] text-electric">FAQ</p>
+          <h2 class="mt-2 text-3xl sm:text-4xl font-extrabold text-navy">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="reveal mt-10 space-y-3">
+          <details class="group rounded-2xl border border-slate-200 bg-white p-5">
+            <summary class="cursor-pointer list-none font-bold text-navy flex justify-between gap-4">What products does TI-COM sell?<i class="fa-solid fa-plus text-electric group-open:rotate-45 transition"></i></summary>
+            <p class="mt-4 text-sm leading-7 text-slate-600">TI-COM deals heavily in networking modules, SFP and SFP+ modules, optical transceivers, fiber optic products, switches, routers, Ethernet/network cables, connectors and networking accessories.</p>
           </details>
-          <details class="group border border-slate-200 rounded-2xl p-5">
-            <summary class="cursor-pointer font-bold flex justify-between items-center list-none">Where is TI-COM located? <span class="group-open:rotate-180 transition"><i data-lucide="chevron-down"></i></span></summary>
-            <p class="text-slate-600 mt-3 leading-7">TI-COM is listed on this website as being located in Lagos Island, Lagos State, Nigeria.</p>
+          <details class="group rounded-2xl border border-slate-200 bg-white p-5">
+            <summary class="cursor-pointer list-none font-bold text-navy flex justify-between gap-4">How can I place an order?<i class="fa-solid fa-plus text-electric group-open:rotate-45 transition"></i></summary>
+            <p class="mt-4 text-sm leading-7 text-slate-600">Add products to the Product Enquiry cart and send the enquiry through WhatsApp. You can also contact TI-COM directly.</p>
           </details>
-          <details class="group border border-slate-200 rounded-2xl p-5">
-            <summary class="cursor-pointer font-bold flex justify-between items-center list-none">Can I send a product enquiry online? <span class="group-open:rotate-180 transition"><i data-lucide="chevron-down"></i></span></summary>
-            <p class="text-slate-600 mt-3 leading-7">Yes. Add products to the cart and use the WhatsApp enquiry button to send the selected items to TI-COM.</p>
+          <details class="group rounded-2xl border border-slate-200 bg-white p-5">
+            <summary class="cursor-pointer list-none font-bold text-navy flex justify-between gap-4">Can I pay by bank transfer?<i class="fa-solid fa-plus text-electric group-open:rotate-45 transition"></i></summary>
+            <p class="mt-4 text-sm leading-7 text-slate-600">Yes. The website provides the stated Moniepoint bank-transfer details. Payment confirmation is handled manually through WhatsApp.</p>
           </details>
-          <details class="group border border-slate-200 rounded-2xl p-5">
-            <summary class="cursor-pointer font-bold flex justify-between items-center list-none">Is online payment connected? <span class="group-open:rotate-180 transition"><i data-lucide="chevron-down"></i></span></summary>
-            <p class="text-slate-600 mt-3 leading-7">This single-file version is a front-end website. It does not process real card payments or connect to a live inventory/order backend.</p>
+          <details class="group rounded-2xl border border-slate-200 bg-white p-5">
+            <summary class="cursor-pointer list-none font-bold text-navy flex justify-between gap-4">How do I confirm my payment?<i class="fa-solid fa-plus text-electric group-open:rotate-45 transition"></i></summary>
+            <p class="mt-4 text-sm leading-7 text-slate-600">After transfer, use the WhatsApp payment-confirmation button and send your payment confirmation and order details.</p>
+          </details>
+          <details class="group rounded-2xl border border-slate-200 bg-white p-5">
+            <summary class="cursor-pointer list-none font-bold text-navy flex justify-between gap-4">Where is TI-COM located?<i class="fa-solid fa-plus text-electric group-open:rotate-45 transition"></i></summary>
+            <p class="mt-4 text-sm leading-7 text-slate-600">Lagos Island, Lagos State, Nigeria.</p>
+          </details>
+          <details class="group rounded-2xl border border-slate-200 bg-white p-5">
+            <summary class="cursor-pointer list-none font-bold text-navy flex justify-between gap-4">Can I contact TI-COM through WhatsApp?<i class="fa-solid fa-plus text-electric group-open:rotate-45 transition"></i></summary>
+            <p class="mt-4 text-sm leading-7 text-slate-600">Yes. WhatsApp is used for product enquiries, cart enquiries, payment confirmation and general contact.</p>
+          </details>
+          <details class="group rounded-2xl border border-slate-200 bg-white p-5">
+            <summary class="cursor-pointer list-none font-bold text-navy flex justify-between gap-4">How can I visit the physical store?<i class="fa-solid fa-plus text-electric group-open:rotate-45 transition"></i></summary>
+            <p class="mt-4 text-sm leading-7 text-slate-600">Use the Google Maps directions feature toward Lagos Island, Lagos State, Nigeria. The website does not invent a street address.</p>
           </details>
         </div>
       </div>
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="py-20 lg:py-28 bg-slate-100">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-2 gap-10">
-          <div class="reveal">
-            <span class="text-cyan font-bold text-sm uppercase tracking-widest">Contact TI-COM</span>
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mt-3">Let's discuss your networking needs.</h2>
-            <p class="text-slate-600 mt-5 leading-7">Reach TI-COM by phone, email or WhatsApp. For physical visits, confirm the exact business address and opening hours before travelling.</p>
+    <section id="contact" class="py-24 bg-navy text-white">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal grid lg:grid-cols-2 gap-12">
+          <div>
+            <p class="text-cyan text-sm font-bold uppercase tracking-[.2em]">Contact TI-COM</p>
+            <h2 class="mt-2 text-3xl sm:text-4xl font-extrabold">Let's Connect Your Network</h2>
+            <p class="mt-5 text-slate-300 leading-8">For product enquiries, payment confirmation, general questions or directions, contact TI-COM through the channels below.</p>
 
-            <div class="space-y-4 mt-8">
-              <a href="tel:07085851114" class="flex gap-4 p-4 rounded-2xl bg-white border border-slate-200 hover:border-cyan transition">
-                <span class="h-11 w-11 rounded-xl bg-cyan/10 text-cyan flex items-center justify-center"><i data-lucide="phone"></i></span>
-                <span><span class="text-xs text-slate-500 block">Phone</span><strong>07085851114</strong></span>
+            <div class="mt-8 space-y-4">
+              <a href="tel:07085851114" class="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
+                <span class="h-11 w-11 rounded-xl bg-cyan/10 text-cyan flex items-center justify-center"><i class="fa-solid fa-phone"></i></span>
+                <span><small class="block text-slate-400">Phone</small><strong>07085851114</strong></span>
               </a>
-              <a href="mailto:info@TI-COM.com" class="flex gap-4 p-4 rounded-2xl bg-white border border-slate-200 hover:border-cyan transition">
-                <span class="h-11 w-11 rounded-xl bg-cyan/10 text-cyan flex items-center justify-center"><i data-lucide="mail"></i></span>
-                <span><span class="text-xs text-slate-500 block">Website email</span><strong>info@TI-COM.com</strong></span>
+              <a href="mailto:INFO@TI-COM.COM" class="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
+                <span class="h-11 w-11 rounded-xl bg-cyan/10 text-cyan flex items-center justify-center"><i class="fa-solid fa-envelope"></i></span>
+                <span><small class="block text-slate-400">Email</small><strong>INFO@TI-COM.COM</strong></span>
               </a>
-              <div class="flex gap-4 p-4 rounded-2xl bg-white border border-slate-200">
-                <span class="h-11 w-11 rounded-xl bg-cyan/10 text-cyan flex items-center justify-center"><i data-lucide="map-pin"></i></span>
-                <span><span class="text-xs text-slate-500 block">Location</span><strong>Lagos Island, Lagos State, Nigeria</strong></span>
-              </div>
-            </div>
-
-            <div class="flex flex-wrap gap-3 mt-6">
-              <a id="contactWhatsApp" href="#" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-[#25D366] text-white font-bold px-5 py-3 rounded-xl hover:opacity-90">
-                <i data-lucide="message-circle"></i> WhatsApp
+              <a href="https://wa.me/234705851114" target="_blank" rel="noopener" class="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
+                <span class="h-11 w-11 rounded-xl bg-whatsapp/10 text-whatsapp flex items-center justify-center"><i class="fa-brands fa-whatsapp"></i></span>
+                <span><small class="block text-slate-400">WhatsApp</small><strong>+234 705 851 114</strong></span>
               </a>
-              <a href="https://www.google.com/maps/search/?api=1&query=Lagos+Island,+Lagos,+Nigeria" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-navy text-white font-bold px-5 py-3 rounded-xl hover:bg-blue transition">
-                <i data-lucide="navigation"></i> Directions
+              <a href="https://www.google.com/maps/dir/?api=1&destination=Lagos%20Island%2C%20Lagos%20State%2C%20Nigeria" target="_blank" rel="noopener" class="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
+                <span class="h-11 w-11 rounded-xl bg-gold/10 text-gold flex items-center justify-center"><i class="fa-solid fa-location-dot"></i></span>
+                <span><small class="block text-slate-400">Location</small><strong>Lagos Island, Lagos State, Nigeria</strong></span>
               </a>
             </div>
           </div>
 
-          <form id="contactForm" class="reveal bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
-            <h3 class="text-2xl font-bold">Send an enquiry</h3>
-            <p class="text-sm text-slate-500 mt-1">Front-end demo form — connect it to your backend/email service for production use.</p>
-            <div class="grid sm:grid-cols-2 gap-4 mt-6">
-              <div>
-                <label class="text-sm font-semibold">Name</label>
-                <input id="contactName" required class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan/30" placeholder="Your name">
-              </div>
-              <div>
-                <label class="text-sm font-semibold">Phone</label>
-                <input id="contactPhone" required class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan/30" placeholder="Phone number">
-              </div>
-            </div>
-            <div class="mt-4">
-              <label class="text-sm font-semibold">Email</label>
-              <input id="contactEmail" type="email" required class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan/30" placeholder="you@example.com">
-            </div>
-            <div class="mt-4">
-              <label class="text-sm font-semibold">Message</label>
-              <textarea id="contactMessage" required rows="5" class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan/30" placeholder="Tell us what networking product or service you need..."></textarea>
-            </div>
-            <button class="mt-5 w-full bg-navy text-white font-bold py-3.5 rounded-xl hover:bg-blue transition">Send via WhatsApp</button>
-          </form>
+          <div class="rounded-[2rem] bg-white p-6 sm:p-8 text-slate-800">
+            <h3 class="text-2xl font-extrabold text-navy">Send an Enquiry</h3>
+            <p class="mt-2 text-sm text-slate-500">Your message will be prepared for WhatsApp.</p>
+            <form id="contactForm" class="mt-6 space-y-4">
+              <input id="contactName" required type="text" placeholder="Name" class="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none focus:border-electric">
+              <input id="contactPhone" required type="tel" placeholder="Phone" class="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none focus:border-electric">
+              <input id="contactEmail" type="email" placeholder="Email" class="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none focus:border-electric">
+              <input id="contactSubject" type="text" placeholder="Product / Subject" class="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none focus:border-electric">
+              <textarea id="contactMessage" required rows="5" placeholder="Message" class="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none focus:border-electric"></textarea>
+              <button class="w-full rounded-xl bg-navy px-6 py-4 font-bold text-white hover:bg-darkblue transition">
+                <i class="fa-brands fa-whatsapp mr-2"></i> Send Enquiry on WhatsApp
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </section>
-
-    <!-- FOOTER -->
-    <footer class="bg-navy text-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
-          <div>
-            <div class="brand text-2xl font-bold">TI-COM</div>
-            <p class="text-slate-400 text-sm leading-6 mt-4">Networking modules, connectivity equipment and digital networking solutions.</p>
-            <div class="flex gap-2 mt-5">
-              <a href="mailto:info@TI-COM.com" class="h-10 w-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-white/10"><i data-lucide="mail"></i></a>
-              <a id="footerWhatsApp" href="#" target="_blank" rel="noopener" class="h-10 w-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-white/10"><i data-lucide="message-circle"></i></a>
-            </div>
-          </div>
-          <div>
-            <h3 class="font-bold">Navigation</h3>
-            <div class="grid gap-3 text-sm text-slate-400 mt-4">
-              <a href="#home" class="hover:text-cyan">Home</a>
-              <a href="#products" class="hover:text-cyan">Products</a>
-              <a href="#services" class="hover:text-cyan">Services</a>
-              <a href="#contact" class="hover:text-cyan">Contact</a>
-            </div>
-          </div>
-          <div>
-            <h3 class="font-bold">Contact</h3>
-            <div class="grid gap-3 text-sm text-slate-400 mt-4">
-              <a href="tel:07085851114" class="hover:text-cyan">07085851114</a>
-              <a href="mailto:info@TI-COM.com" class="hover:text-cyan">info@TI-COM.com</a>
-              <span>Lagos Island, Lagos State</span>
-            </div>
-          </div>
-          <div>
-            <h3 class="font-bold">Important</h3>
-            <p class="text-sm text-slate-400 mt-4 leading-6">This is a front-end single-file implementation. Live orders, inventory, payment processing, email delivery and authentication require a backend or external service.</p>
-          </div>
-        </div>
-        <div class="border-t border-white/10 mt-10 pt-6 flex flex-col sm:flex-row justify-between gap-3 text-xs text-slate-500">
-          <p>© 2026 TI-COM. All Rights Reserved.</p>
-          <p>Networking • Connectivity • Technology</p>
-        </div>
-      </div>
-    </footer>
   </main>
 
-  <!-- CART DRAWER -->
-  <div id="cartOverlay" class="fixed inset-0 z-[70] bg-black/50 hidden"></div>
-  <aside id="cartDrawer" class="fixed right-0 top-0 bottom-0 z-[80] w-full max-w-md bg-white shadow-2xl translate-x-full transition-transform duration-300 flex flex-col">
-    <div class="p-5 border-b flex items-center justify-between">
-      <div>
-        <h2 class="text-xl font-bold">Your enquiry cart</h2>
-        <p class="text-xs text-slate-500">Selected products</p>
-      </div>
-      <button onclick="closeCart()" class="h-10 w-10 rounded-xl bg-slate-100 flex items-center justify-center"><i data-lucide="x"></i></button>
-    </div>
-    <div id="cartItems" class="flex-1 overflow-y-auto p-5"></div>
-    <div class="border-t p-5">
-      <div class="flex justify-between font-bold mb-4">
-        <span>Estimated total</span>
-        <span id="cartTotal">₦0</span>
-      </div>
-      <button onclick="sendCartToWhatsApp()" class="w-full py-3.5 rounded-xl bg-[#25D366] text-white font-bold flex items-center justify-center gap-2">
-        <i data-lucide="message-circle"></i> Send enquiry on WhatsApp
-      </button>
-      <button onclick="clearCart()" class="w-full py-3 mt-2 rounded-xl bg-slate-100 text-slate-700 font-semibold">Clear cart</button>
-    </div>
-  </aside>
+  <!-- FOOTER -->
+  <footer class="bg-[#041126] text-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div>
+          <div class="flex items-center gap-3">
+            <div class="h-11 w-11 rounded-xl bg-gradient-to-br from-electric to-cyan flex items-center justify-center"><i class="fa-solid fa-network-wired"></i></div>
+            <div class="text-xl font-extrabold">TI-COM</div>
+          </div>
+          <p class="mt-5 text-sm leading-7 text-slate-400">Intercommunication & Networking Solutions.</p>
+          <p class="mt-4 text-sm font-semibold text-cyan">Connecting Technology. Building Better Networks.</p>
+        </div>
 
-  <!-- TOAST -->
-  <div id="toast" class="fixed right-5 bottom-5 z-[100] hidden">
-    <div class="toast bg-navy text-white rounded-xl px-5 py-3 shadow-2xl flex items-center gap-3">
-      <i data-lucide="check-circle" class="text-cyan"></i>
-      <span id="toastText">Done</span>
+        <div>
+          <h3 class="font-bold">Quick Links</h3>
+          <div class="mt-4 grid gap-2 text-sm text-slate-400">
+            <a href="#home" class="hover:text-cyan">Home</a>
+            <a href="#products" class="hover:text-cyan">Products</a>
+            <a href="#services" class="hover:text-cyan">Services</a>
+            <a href="#about" class="hover:text-cyan">About</a>
+            <a href="#ceo" class="hover:text-cyan">CEO</a>
+            <a href="#location" class="hover:text-cyan">Location</a>
+            <a href="#faq" class="hover:text-cyan">FAQ</a>
+            <a href="#contact" class="hover:text-cyan">Contact</a>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-bold">Contact</h3>
+          <div class="mt-4 space-y-3 text-sm text-slate-400">
+            <p><i class="fa-solid fa-phone mr-2 text-cyan"></i>07085851114</p>
+            <p><i class="fa-solid fa-envelope mr-2 text-cyan"></i>INFO@TI-COM.COM</p>
+            <p><i class="fa-solid fa-location-dot mr-2 text-cyan"></i>Lagos Island, Lagos State, Nigeria</p>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-bold">Stay Connected</h3>
+          <p class="mt-4 text-sm text-slate-400">Subscribe for product updates, networking information and TI-COM announcements.</p>
+          <button onclick="openSubscribe()" class="mt-5 rounded-xl bg-gold px-5 py-3 font-bold text-navy">Subscribe</button>
+          <div class="mt-5 flex gap-3">
+            <a href="#" aria-label="Facebook" class="h-10 w-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-white/10"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram" class="h-10 w-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-white/10"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://wa.me/234705851114" aria-label="WhatsApp" class="h-10 w-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-white/10"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 border-t border-white/10 pt-7 flex flex-col sm:flex-row justify-between gap-3 text-xs text-slate-500">
+        <p>© 2026 TI-COM. All Rights Reserved.</p>
+        <p>Front-end product enquiry experience.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP -->
+  <a href="https://wa.me/234705851114?text=Hello%20TI-COM%2C%20I%20would%20like%20to%20make%20an%20enquiry." target="_blank" rel="noopener" aria-label="Chat with TI-COM on WhatsApp"
+     class="fixed bottom-5 right-5 z-40 h-14 w-14 rounded-full bg-whatsapp text-white flex items-center justify-center text-2xl shadow-lg hover:scale-110 transition">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- CART MODAL -->
+  <div id="cartModal" class="modal-hidden fixed inset-0 z-[80] flex items-center justify-center bg-navy/70 p-4 transition-opacity duration-200">
+    <div class="modal-box w-full max-w-2xl max-h-[90vh] overflow-hidden rounded-3xl bg-white shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-200 p-5">
+        <div>
+          <p class="text-xs uppercase tracking-wider font-bold text-electric">Enquiry</p>
+          <h3 class="text-xl font-extrabold text-navy">Product Enquiry</h3>
+        </div>
+        <button onclick="closeCart()" class="h-10 w-10 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div id="cartItems" class="max-h-[50vh] overflow-auto p-5"></div>
+      <div class="border-t border-slate-200 p-5">
+        <button onclick="sendCartToWhatsApp()" class="w-full rounded-xl bg-whatsapp px-5 py-3.5 font-bold text-white hover:brightness-105 transition">
+          <i class="fa-brands fa-whatsapp mr-2"></i> Send Complete Enquiry on WhatsApp
+        </button>
+        <button onclick="clearCart()" class="mt-2 w-full rounded-xl border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50">Clear Enquiry</button>
+      </div>
     </div>
   </div>
 
-  <script>
-    // ==========================
-    // TI-COM SINGLE-FILE WEBSITE
-    // ==========================
+  <!-- SUBSCRIBE MODAL -->
+  <div id="subscribeModal" class="modal-hidden fixed inset-0 z-[90] flex items-center justify-center bg-navy/75 p-4 transition-opacity duration-200">
+    <div class="modal-box w-full max-w-md rounded-3xl bg-white p-7 shadow-2xl">
+      <div class="flex justify-between items-start">
+        <div class="h-12 w-12 rounded-2xl bg-electric/10 text-electric flex items-center justify-center text-xl"><i class="fa-regular fa-bell"></i></div>
+        <button onclick="closeSubscribe()" class="h-10 w-10 rounded-xl bg-slate-100 text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <h3 class="mt-6 text-2xl font-extrabold text-navy">Stay Connected With TI-COM</h3>
+      <p class="mt-2 text-sm leading-6 text-slate-600">Subscribe to receive product updates, networking information and TI-COM announcements.</p>
+      <form id="subscribeForm" class="mt-6">
+        <input id="subscribeEmail" required type="email" placeholder="Enter your email address" class="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none focus:border-electric">
+        <button class="mt-3 w-full rounded-xl bg-navy px-5 py-3.5 font-bold text-white hover:bg-darkblue transition">Subscribe</button>
+      </form>
+      <p class="mt-3 text-xs text-slate-400">Front-end demo: subscriber information is not stored in a database.</p>
+    </div>
+  </div>
 
-    const WHATSAPP_NUMBER = "2347085851114";
-    const BUSINESS_EMAIL = "info@TI-COM.com";
+  <!-- TOAST -->
+  <div id="toast" class="toast fixed bottom-5 left-5 z-[100] rounded-xl bg-navy px-5 py-3 text-sm font-semibold text-white shadow-xl">
+    <i class="fa-solid fa-check text-cyan mr-2"></i><span id="toastText">Done</span>
+  </div>
+
+  <script>
+    /* =========================================================
+       TI-COM — SINGLE FILE FRONT-END WEBSITE
+       CEO IMAGE:
+       Replace CEO_IMAGE_URL below with the path/URL to the
+       supplied CEO photograph. Example:
+       const CEO_IMAGE_URL = "images/ceo.jpg";
+       ========================================================= */
+
+    const CEO_IMAGE_URL = "images/ceo.jpg";
 
     const products = [
-      {
-        id: 1, name: "SFP Networking Module", category: "modules",
-        price: 85000, image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=80",
-        description: "Optical networking module for compatible network equipment."
-      },
-      {
-        id: 2, name: "Gigabit Router", category: "routers",
-        price: 145000, image: "https://images.unsplash.com/photo-1606904825846-647eb07f5be2?auto=format&fit=crop&w=900&q=80",
-        description: "Modern router concept for home and office connectivity."
-      },
-      {
-        id: 3, name: "Managed Network Switch", category: "switches",
-        price: 180000, image: "https://images.unsplash.com/photo-1551703599-6b3e8379aa8a?auto=format&fit=crop&w=900&q=80",
-        description: "Network switching equipment for structured connectivity."
-      },
-      {
-        id: 4, name: "Ethernet Network Cable", category: "accessories",
-        price: 25000, image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=80",
-        description: "Networking cable product placeholder for your catalogue."
-      },
-      {
-        id: 5, name: "Wireless Access Point", category: "routers",
-        price: 120000, image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=900&q=80",
-        description: "Wireless connectivity equipment for network coverage."
-      },
-      {
-        id: 6, name: "Fiber Optic Module", category: "modules",
-        price: 95000, image: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=900&q=80",
-        description: "Fiber networking component placeholder."
-      },
-      {
-        id: 7, name: "8-Port Network Switch", category: "switches",
-        price: 75000, image: "https://images.unsplash.com/photo-1606904825846-647eb07f5be2?auto=format&fit=crop&w=900&q=80",
-        description: "Compact network switch for small network installations."
-      },
-      {
-        id: 8, name: "RJ45 Connector Pack", category: "accessories",
-        price: 12000, image: "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=900&q=80",
-        description: "Network connector accessory placeholder."
-      }
+      {id:1,name:"SFP Module",category:"Networking Modules",desc:"Networking transceiver module for compatible network equipment.",price:"Contact for Price",icon:"fa-microchip",image:"https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=80"},
+      {id:2,name:"SFP+ Module",category:"Networking Modules",desc:"High-speed networking module for compatible systems.",price:"Contact for Price",icon:"fa-microchip",image:"https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&w=900&q=80"},
+      {id:3,name:"Optical Transceiver",category:"Networking Modules",desc:"Optical connectivity component for network infrastructure.",price:"Contact for Price",icon:"fa-wave-square",image:"https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80"},
+      {id:4,name:"Fiber Optic Module",category:"Fiber Optics",desc:"Fiber connectivity module for networking applications.",price:"Contact for Price",icon:"fa-fiber-node",image:"https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=900&q=80"},
+      {id:5,name:"Fiber Optic Patch Cord",category:"Fiber Optics",desc:"Fiber patch connectivity accessory for network installations.",price:"Contact for Price",icon:"fa-link",image:"https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?auto=format&fit=crop&w=900&q=80"},
+      {id:6,name:"Fiber Adapter",category:"Fiber Optics",desc:"Adapter accessory for compatible fiber connectivity setups.",price:"Contact for Price",icon:"fa-plug",image:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80"},
+      {id:7,name:"Fiber Connector",category:"Fiber Optics",desc:"Connector for fiber optic network connections.",price:"Contact for Price",icon:"fa-circle-nodes",image:"https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=900&q=80"},
+      {id:8,name:"Network Switch",category:"Switches",desc:"Network switching equipment for connectivity environments.",price:"Contact for Price",icon:"fa-server",image:"https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=80"},
+      {id:9,name:"Managed Switch",category:"Switches",desc:"Switching equipment for managed networking environments.",price:"Contact for Price",icon:"fa-network-wired",image:"https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80"},
+      {id:10,name:"Enterprise Router",category:"Routers",desc:"Router equipment for network connectivity requirements.",price:"Contact for Price",icon:"fa-router",image:"https://images.unsplash.com/photo-1606904825846-647eb07f5be2?auto=format&fit=crop&w=900&q=80"},
+      {id:11,name:"Network Router",category:"Routers",desc:"Networking router for compatible network environments.",price:"Contact for Price",icon:"fa-wifi",image:"https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=900&q=80"},
+      {id:12,name:"Ethernet Cable",category:"Accessories",desc:"Network cable for wired connectivity applications.",price:"Contact for Price",icon:"fa-ethernet",image:"https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=80"},
+      {id:13,name:"Network Connectors",category:"Accessories",desc:"Supporting connectors for networking installations.",price:"Contact for Price",icon:"fa-plug-circle-bolt",image:"https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80"},
+      {id:14,name:"Network Tools",category:"Accessories",desc:"Supporting tools for network installation and maintenance.",price:"Contact for Price",icon:"fa-screwdriver-wrench",image:"https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=900&q=80"},
+      {id:15,name:"Patch Accessories",category:"Accessories",desc:"Accessories supporting structured network connections.",price:"Contact for Price",icon:"fa-toolbox",image:"https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=900&q=80"},
+      {id:16,name:"Networking Materials",category:"Accessories",desc:"Additional materials for networking and connectivity projects.",price:"Contact for Price",icon:"fa-boxes-stacked",image:"https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80"}
     ];
 
-    let cart = JSON.parse(localStorage.getItem("ticom_cart") || "[]");
-    let activeFilter = "all";
+    let activeFilter = "All";
+    let enquiryCart = [];
 
-    const naira = value => "₦" + Number(value).toLocaleString("en-NG");
+    const productGrid = document.getElementById("productGrid");
+    const emptyProducts = document.getElementById("emptyProducts");
+    const searchInput = document.getElementById("productSearch");
 
     function renderProducts() {
-      const query = document.getElementById("productSearch").value.toLowerCase().trim();
-      const grid = document.getElementById("productGrid");
-      const noProducts = document.getElementById("noProducts");
-
+      const term = searchInput.value.trim().toLowerCase();
       const filtered = products.filter(p => {
-        const matchesCategory = activeFilter === "all" || p.category === activeFilter;
-        const matchesSearch = (p.name + " " + p.description).toLowerCase().includes(query);
+        const matchesCategory = activeFilter === "All" || p.category === activeFilter;
+        const matchesSearch = [p.name,p.category,p.desc].join(" ").toLowerCase().includes(term);
         return matchesCategory && matchesSearch;
       });
 
-      grid.innerHTML = filtered.map(p => `
-        <article class="product-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-          <div class="h-48 bg-slate-100 overflow-hidden">
-            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover" loading="lazy">
+      productGrid.innerHTML = filtered.map(p => `
+        <article class="product-card rounded-2xl border border-slate-200 bg-white overflow-hidden">
+          <div class="relative h-48 bg-slate-100 overflow-hidden">
+            <img src="${p.image}" alt="${p.name}" class="h-full w-full object-cover" loading="lazy">
+            <div class="absolute top-3 left-3 rounded-full bg-navy/90 px-3 py-1 text-[10px] font-bold text-cyan">${p.category}</div>
           </div>
           <div class="p-5">
-            <span class="inline-block text-[10px] uppercase tracking-widest font-bold text-cyan bg-cyan/10 px-2 py-1 rounded-full">${p.category}</span>
-            <h3 class="font-bold text-lg mt-3">${p.name}</h3>
-            <p class="text-sm text-slate-500 mt-2 min-h-[42px]">${p.description}</p>
-            <div class="flex items-center justify-between gap-3 mt-5">
-              <span class="font-bold text-lg">${naira(p.price)}</span>
-              <button onclick="addToCart(${p.id})" class="px-3 py-2 rounded-xl bg-navy text-white text-sm font-bold hover:bg-blue transition">
-                Add
+            <div class="flex items-start justify-between gap-3">
+              <h3 class="font-extrabold text-navy">${p.name}</h3>
+              <i class="fa-solid ${p.icon} text-electric mt-1"></i>
+            </div>
+            <p class="mt-2 text-sm leading-6 text-slate-500">${p.desc}</p>
+            <div class="mt-4 flex items-center justify-between gap-3">
+              <span class="text-sm font-bold text-navy">${p.price}</span>
+              <button onclick="addToCart(${p.id})" class="rounded-lg bg-electric px-3 py-2 text-xs font-bold text-white hover:bg-darkblue transition">
+                <i class="fa-solid fa-plus mr-1"></i> Add to Enquiry
               </button>
             </div>
+            <a href="https://wa.me/234705851114?text=${encodeURIComponent("Hello TI-COM, I am interested in the " + p.name + ". Please provide more information.")}" target="_blank" rel="noopener" class="mt-3 block text-center rounded-lg border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50">
+              <i class="fa-brands fa-whatsapp mr-1 text-whatsapp"></i> WhatsApp Enquiry
+            </a>
           </div>
         </article>
       `).join("");
 
-      noProducts.classList.toggle("hidden", filtered.length !== 0);
+      emptyProducts.classList.toggle("hidden", filtered.length !== 0);
     }
 
     function addToCart(id) {
-      const existing = cart.find(item => item.id === id);
-      if (existing) existing.qty += 1;
-      else cart.push({ id, qty: 1 });
-      saveCart();
-      showToast("Product added to enquiry cart");
+      const item = enquiryCart.find(x => x.id === id);
+      if (item) item.qty += 1;
+      else enquiryCart.push({id, qty:1});
+      updateCartCount();
+      showToast("Product added to enquiry");
     }
 
     function removeFromCart(id) {
-      cart = cart.filter(item => item.id !== id);
-      saveCart();
+      enquiryCart = enquiryCart.filter(x => x.id !== id);
+      updateCartCount();
+      renderCart();
     }
 
-    function changeQty(id, delta) {
-      const item = cart.find(x => x.id === id);
-      if (!item) return;
-      item.qty += delta;
-      if (item.qty <= 0) removeFromCart(id);
-      else saveCart();
+    function updateCartCount() {
+      document.getElementById("cartCount").textContent = enquiryCart.reduce((sum,x) => sum + x.qty, 0);
     }
 
-    function clearCart() {
-      cart = [];
-      saveCart();
-    }
-
-    function saveCart() {
-      localStorage.setItem("ticom_cart", JSON.stringify(cart));
-      updateCartUI();
-    }
-
-    function updateCartUI() {
-      const count = cart.reduce((sum, item) => sum + item.qty, 0);
-      document.getElementById("cartCount").textContent = count;
-
-      const container = document.getElementById("cartItems");
-      if (!cart.length) {
-        container.innerHTML = `
-          <div class="h-full flex flex-col items-center justify-center text-center text-slate-500">
-            <i data-lucide="shopping-bag" class="w-12 h-12 mb-4"></i>
-            <p class="font-semibold">Your cart is empty</p>
-            <p class="text-sm mt-1">Add products to create an enquiry.</p>
+    function renderCart() {
+      const box = document.getElementById("cartItems");
+      if (!enquiryCart.length) {
+        box.innerHTML = `
+          <div class="py-12 text-center">
+            <i class="fa-solid fa-clipboard-list text-4xl text-slate-300"></i>
+            <p class="mt-4 font-bold text-navy">Your enquiry is empty</p>
+            <p class="mt-1 text-sm text-slate-500">Add products from the catalogue first.</p>
           </div>`;
-      } else {
-        container.innerHTML = cart.map(item => {
-          const p = products.find(x => x.id === item.id);
-          return `
-            <div class="flex gap-3 py-4 border-b">
-              <img src="${p.image}" class="h-16 w-16 rounded-xl object-cover" alt="">
-              <div class="flex-1">
-                <div class="font-semibold text-sm">${p.name}</div>
-                <div class="text-sm text-slate-500">${naira(p.price)}</div>
-                <div class="flex items-center gap-2 mt-2">
-                  <button onclick="changeQty(${p.id},-1)" class="h-7 w-7 rounded-lg bg-slate-100">−</button>
-                  <span class="text-sm font-semibold">${item.qty}</span>
-                  <button onclick="changeQty(${p.id},1)" class="h-7 w-7 rounded-lg bg-slate-100">+</button>
-                  <button onclick="removeFromCart(${p.id})" class="ml-auto text-xs text-red-500">Remove</button>
-                </div>
-              </div>
-            </div>`;
-        }).join("");
-      }
-
-      const total = cart.reduce((sum, item) => {
-        const p = products.find(x => x.id === item.id);
-        return sum + p.price * item.qty;
-      }, 0);
-      document.getElementById("cartTotal").textContent = naira(total);
-      lucide.createIcons();
-    }
-
-    function openCart() {
-      document.getElementById("cartOverlay").classList.remove("hidden");
-      document.getElementById("cartDrawer").classList.remove("translate-x-full");
-    }
-
-    function closeCart() {
-      document.getElementById("cartOverlay").classList.add("hidden");
-      document.getElementById("cartDrawer").classList.add("translate-x-full");
-    }
-
-    function whatsappUrl(message) {
-      return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
-    }
-
-    function sendCartToWhatsApp() {
-      if (!cart.length) {
-        showToast("Your enquiry cart is empty");
         return;
       }
 
-      let message = "Hello TI-COM, I would like to make a product enquiry:%0A";
-      message = "Hello TI-COM, I would like to make a product enquiry:\\n\\n";
-      cart.forEach(item => {
+      box.innerHTML = enquiryCart.map(item => {
         const p = products.find(x => x.id === item.id);
-        message += `• ${p.name} — Qty: ${item.qty} — ${naira(p.price * item.qty)}\\n`;
+        return `
+          <div class="flex items-center gap-4 border-b border-slate-100 py-4 last:border-0">
+            <img src="${p.image}" class="h-16 w-16 rounded-xl object-cover bg-slate-100" alt="${p.name}">
+            <div class="min-w-0 flex-1">
+              <p class="font-bold text-navy">${p.name}</p>
+              <p class="text-xs text-slate-500">${p.category} · Quantity: ${item.qty}</p>
+            </div>
+            <button onclick="removeFromCart(${p.id})" class="h-9 w-9 rounded-lg bg-red-50 text-red-500"><i class="fa-solid fa-trash"></i></button>
+          </div>`;
+      }).join("");
+    }
+
+    function openCart() {
+      renderCart();
+      const modal = document.getElementById("cartModal");
+      modal.classList.remove("modal-hidden");
+      document.body.classList.add("overflow-hidden");
+    }
+
+    function closeCart() {
+      document.getElementById("cartModal").classList.add("modal-hidden");
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    function clearCart() {
+      enquiryCart = [];
+      updateCartCount();
+      renderCart();
+      showToast("Enquiry cleared");
+    }
+
+    function sendCartToWhatsApp() {
+      if (!enquiryCart.length) {
+        showToast("Add at least one product first");
+        return;
+      }
+      const lines = enquiryCart.map(item => {
+        const p = products.find(x => x.id === item.id);
+        return `- ${p.name} — Quantity: ${item.qty}`;
       });
-
-      const total = cart.reduce((sum, item) => {
-        const p = products.find(x => x.id === item.id);
-        return sum + p.price * item.qty;
-      }, 0);
-
-      message += `\\nEstimated total: ${naira(total)}\\n\\nPlease confirm availability and final pricing.`;
-      window.open(whatsappUrl(message), "_blank");
+      const message =
+        "Hello TI-COM, I would like to make a product enquiry.%0A%0A" +
+        lines.join("%0A") +
+        "%0A%0APlease provide availability and pricing.";
+      window.open("https://wa.me/234705851114?text=" + message, "_blank");
     }
-
-    function showToast(message) {
-      const toast = document.getElementById("toast");
-      document.getElementById("toastText").textContent = message;
-      toast.classList.remove("hidden");
-      clearTimeout(window.toastTimer);
-      window.toastTimer = setTimeout(() => toast.classList.add("hidden"), 2800);
-    }
-
-    // Mobile menu
-    document.getElementById("mobileMenuBtn").addEventListener("click", () => {
-      document.getElementById("mobileNav").classList.toggle("hidden");
-    });
-
-    document.querySelectorAll(".mobile-link").forEach(link => {
-      link.addEventListener("click", () => document.getElementById("mobileNav").classList.add("hidden"));
-    });
-
-    // Product search/filter
-    document.getElementById("productSearch").addEventListener("input", renderProducts);
 
     document.querySelectorAll(".filter-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         activeFilter = btn.dataset.filter;
         document.querySelectorAll(".filter-btn").forEach(b => {
-          b.classList.remove("bg-navy", "text-white");
-          b.classList.add("bg-slate-100", "text-slate-700");
+          b.classList.remove("bg-navy","text-white");
+          b.classList.add("border","border-slate-200","bg-white");
         });
-        btn.classList.remove("bg-slate-100", "text-slate-700");
-        btn.classList.add("bg-navy", "text-white");
+        btn.classList.remove("border","border-slate-200","bg-white");
+        btn.classList.add("bg-navy","text-white");
         renderProducts();
       });
     });
 
-    // Subscription — front-end demo only
+    searchInput.addEventListener("input", renderProducts);
+
+    // Mobile menu
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    menuBtn.addEventListener("click", () => mobileMenu.classList.toggle("hidden"));
+    document.querySelectorAll(".mobile-link").forEach(link => {
+      link.addEventListener("click", () => mobileMenu.classList.add("hidden"));
+    });
+
+    // Navbar scroll state
+    window.addEventListener("scroll", () => {
+      document.getElementById("navbar").classList.toggle("nav-scrolled", window.scrollY > 20);
+    });
+
+    // Reveal animations
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {threshold:.08});
+    document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+    // Toast
+    let toastTimer;
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      document.getElementById("toastText").textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2800);
+    }
+
+    // Copy bank account
+    async function copyAccount() {
+      const number = "7085851114";
+      try {
+        await navigator.clipboard.writeText(number);
+      } catch (e) {
+        const temp = document.createElement("textarea");
+        temp.value = number;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand("copy");
+        temp.remove();
+      }
+      showToast("Account number copied!");
+    }
+
+    // Subscribe modal
+    function openSubscribe() {
+      document.getElementById("subscribeModal").classList.remove("modal-hidden");
+      document.body.classList.add("overflow-hidden");
+    }
+    function closeSubscribe() {
+      document.getElementById("subscribeModal").classList.add("modal-hidden");
+      document.body.classList.remove("overflow-hidden");
+    }
+
     document.getElementById("subscribeForm").addEventListener("submit", e => {
       e.preventDefault();
       const email = document.getElementById("subscribeEmail").value.trim();
       if (!email) return;
-      showToast("Subscription request captured for " + email);
+      showToast("Subscription interaction completed");
       e.target.reset();
+      setTimeout(closeSubscribe, 500);
     });
 
-    // Contact form -> WhatsApp
+    // Contact -> WhatsApp
     document.getElementById("contactForm").addEventListener("submit", e => {
       e.preventDefault();
       const name = document.getElementById("contactName").value.trim();
       const phone = document.getElementById("contactPhone").value.trim();
       const email = document.getElementById("contactEmail").value.trim();
+      const subject = document.getElementById("contactSubject").value.trim();
       const message = document.getElementById("contactMessage").value.trim();
 
-      const text = `Hello TI-COM,\\n\\nName: ${name}\\nPhone: ${phone}\\nEmail: ${email}\\n\\nEnquiry:\\n${message}`;
-      window.open(whatsappUrl(text), "_blank");
+      const text =
+        `Hello TI-COM, I would like to make an enquiry.%0A%0A` +
+        `Name: ${encodeURIComponent(name)}%0A` +
+        `Phone: ${encodeURIComponent(phone)}%0A` +
+        `Email: ${encodeURIComponent(email)}%0A` +
+        `Product/Subject: ${encodeURIComponent(subject)}%0A` +
+        `Message: ${encodeURIComponent(message)}`;
+
+      window.open("https://wa.me/234705851114?text=" + text, "_blank");
     });
 
-    // WhatsApp links
-    const defaultMessage = "Hello TI-COM, I would like to make an enquiry about your networking products.";
-    ["contactWhatsApp","footerWhatsApp","transferWhatsApp"].forEach(id => {
-      const el = document.getElementById(id);
-      el.href = whatsappUrl(id === "transferWhatsApp"
-        ? "Hello TI-COM, I have completed a bank transfer and would like to confirm the payment."
-        : defaultMessage);
+    // Location
+    function useCurrentLocation() {
+      const status = document.getElementById("locationStatus");
+      if (!navigator.geolocation) {
+        status.textContent = "Location detection is not supported by this browser. You can use Google Maps directions instead.";
+        return;
+      }
+
+      status.textContent = "Requesting your location permission...";
+
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          const destination = encodeURIComponent("Lagos Island, Lagos State, Nigeria");
+          const url = `https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${destination}`;
+          status.innerHTML = `<span class="text-cyan">Location detected.</span> <a class="underline font-semibold" target="_blank" rel="noopener" href="${url}">Open directions from your current location.</a>`;
+        },
+        () => {
+          status.textContent = "Location permission was not granted. You can use Google Maps directions instead.";
+        },
+        {enableHighAccuracy:false, timeout:10000, maximumAge:60000}
+      );
+    }
+
+    // Close modals by clicking backdrop
+    document.getElementById("cartModal").addEventListener("click", e => {
+      if (e.target.id === "cartModal") closeCart();
+    });
+    document.getElementById("subscribeModal").addEventListener("click", e => {
+      if (e.target.id === "subscribeModal") closeSubscribe();
     });
 
-    // Reveal animation
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add("show");
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") {
+        closeCart();
+        closeSubscribe();
+      }
+    });
+
+    // CEO image: keep all profile locations synchronized.
+    function setCeoImage(url) {
+      ["navCeoImage","heroCeoImage","aboutCeoImage","ceoMainImage"].forEach(id => {
+        const img = document.getElementById(id);
+        if (img) {
+          img.src = url;
+          img.onerror = () => {
+            img.classList.add("opacity-0");
+            img.parentElement.classList.add("relative");
+            img.parentElement.style.background =
+              "radial-gradient(circle at 50% 30%, rgba(16,217,245,.20), transparent 55%), #0B2A5B";
+          };
+        }
       });
-    }, { threshold: .08 });
+    }
 
-    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+    // Initial rendering
+    renderProducts();
+    updateCartCount();
+    setCeoImage(CEO_IMAGE_URL);
 
-    // Init
+    // Preloader
     window.addEventListener("load", () => {
-      renderProducts();
-      updateCartUI();
-      lucide.createIcons();
-
       setTimeout(() => {
-        document.getElementById("preloader").style.opacity = "0";
-        document.getElementById("preloader").style.pointerEvents = "none";
-        setTimeout(() => document.getElementById("preloader").remove(), 400);
-      }, 700);
+        const loader = document.getElementById("preloader");
+        loader.style.opacity = "0";
+        loader.style.pointerEvents = "none";
+        setTimeout(() => loader.remove(), 400);
+      }, 900);
     });
   </script>
 </body>
 </html>
-'''
-
-path = Path("/mnt/data/ti-com.html")
-path.write_text(html, encoding="utf-8")
-print(f"Created: {path}")
